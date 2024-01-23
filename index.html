@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>网站首页</title>
+    <title>粉白渐变网站主页</title>
     <style>
         body {
             font-family: '微软雅黑', sans-serif;
@@ -22,77 +22,85 @@
             height: 100vh;
             flex-direction: column;
         }
-        .search-box {
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .main-content {
             margin: 20px;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            backdrop-filter: blur(10px);
         }
-        .search-box input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .search-box button {
-            background-color: #f44336;
+        .footer {
+            background-color: #333;
             color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
         }
-        .search-box button:hover {
-            background-color: #d32f2f;
+        .header h1 {
+            font-size: 3em;
+        }
+        .main-content h2 {
+            font-size: 2em;
+        }
+        .main-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .main-content li {
+            margin-bottom: 10px;
+        }
+        .main-content a {
+            text-decoration: none;
+            color: #f44336;
+            font-weight: bold;
+        }
+        .main-content a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>欢迎来到我的网站</h1>
-        <div class="search-box">
-            <label for="search-input">搜索内容：</label>
-            <input type="text" id="search-input" name="search" required>
-            <button type="submit">搜索</button>
+        <div class="header">
+            <h1>欢迎来到我的网站</h1>
         </div>
-        <div id="search-results"></div>
+        <div class="main-content">
+            <h2>网站介绍</h2>
+            <p>这里可以放置网站的介绍、特点和亮点等内容。</p>
+            <h3>网站功能</h3>
+            <ul>
+                <li>功能1</li>
+                <li>功能2</li>
+                <li>功能3</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 我的网站</p>
+        </div>
+    </div>
+   <div  <style="
+      text-align: center ;"
+    id="button-container">
+        <button id="open-other-html-button">搜索</button>
+     
     </div>
 
     <script>
-        document.getElementById('search-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const searchInput = document.getElementById('search-input').value;
-            const searchResults = document.getElementById('search-results');
-            searchResults.innerHTML = ''; // 清空搜索结果
-
-            // 假设我们有一个简单的搜索数据
-            const searchData = [
-                '第一条搜索结果',
-                '第二条搜索结果',
-                '第三条搜索结果',
-                // 更多搜索结果...
-            ];
-
-            // 检查搜索数据中是否包含搜索内容
-            if (searchInput.trim() === '') {
-                alert('请输入搜索内容');
-                return;
-            }
-
-            // 查找搜索结果
-            const results = searchData.filter(result => result.includes(searchInput));
-            if (results.length > 0) {
-                searchResults.innerHTML = '<h2>搜索结果</h2>';
-                results.forEach(result => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = result;
-                    searchResults.appendChild(listItem);
-                });
-            } else {
-                searchResults.innerHTML = '<h2>抱歉，没有找到结果</h2>';
-            }
+        document.getElementById('open-other-html-button').addEventListener('click', function() {
+            // 使用window.open()方法打开另一个HTML文件
+            window.open('login.html', '_blank');
         });
     </script>
 </body>
