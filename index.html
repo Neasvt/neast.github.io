@@ -71,7 +71,17 @@
         }
     </style>
 </head>
-<body>
+ <div id="button-container">
+        <button id="open-other-html-button">打开另一个HTML文件</button>
+    </div>
+
+    <script>
+        document.getElementById('open-other-html-button').addEventListener('click', function() {
+            // 使用window.open()方法打开另一个HTML文件
+            window.open('other-html-file.html', '_blank');
+        });
+    </script>
+    <body>
     <div class="container">
         <div class="header">
             <h1>欢迎来到我的网站</h1>
