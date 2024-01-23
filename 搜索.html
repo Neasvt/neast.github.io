@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关键词搜索</title>
+    <style>
+        /* 在这里添加CSS样式 */
+    </style>
+</head>
+<body>
+    <div id="search-container">
+        <h1>关键词搜索</h1>
+        <div id="search-box">
+            <label for="search-input">搜索内容：</label>
+            <input type="text" id="search-input" name="search" required>
+            <button type="submit">搜索</button>
+        </div>
+    </div>
+
+    <div id="search-results"></div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const searchInput = document.getElementById('search-input').value;
+            const searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = ''; // 清空搜索结果
+
+            // 检查输入内容是否包含特定关键词
+            if (searchInput.toLowerCase().includes('自杀')) {
+                window.location.href = 'https://neasvt.github.io/neast.github.io/%E8%87%AA%E6%9D%80.html';
+            } else {
+                // 假设我们有一个简单的搜索数据
+                const searchData = [
+                    '第一条搜索结果',
+                    '第二条搜索结果',
+                    '第三条搜索结果',
+                    // 更多搜索结果...
+                ];
+
+                // 查找搜索结果
+                const results = searchData.filter(result => result.includes(searchInput));
+                if (results.length > 0) {
+                    searchResults.innerHTML = '<h2>搜索结果</h2>';
+                    results.forEach(result => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = result;
+                        searchResults.appendChild(listItem);
+                    });
+                } else {
+                    searchResults.innerHTML = '<h2>抱歉，没有找到结果</h2>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
