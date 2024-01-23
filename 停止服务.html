@@ -38,7 +38,16 @@
         }
     </style>
 </head>
-<script>
+<body>
+    <div class="container">
+        <h1>欢迎来到我的网站</h1>
+        <div class="status-message">
+            <h1>夜深了，好好休息一下吧！</h1>
+            <p>为了您和网站的健康，我们将在晚上23点到次日早上4点进行维护。感谢您的理解与支持。</p>
+        </div>
+    </div>
+
+    <script>
         function isTimeOutsideOfRange() {
             const now = new Date();
             const startTime = new Date('23:00:00');
@@ -46,7 +55,7 @@
 
             // 检查当前时间是否在停用时间段内
             if (now >= startTime && now <= endTime) {
-                document.getElementById('status').innerText = '抱歉，网站目前暂时关闭，请稍后再访问。';
+                document.getElementById('status').innerText = '夜深了，好好休息一下吧！';
                 // 或者，你可以使用window.location.href来重定向
                 window.location.href = 'https://example.com/maintenance.html';
             } else {
@@ -59,14 +68,6 @@
 
         // 每分钟检查一次，确保时间同步
         setInterval(isTimeOutsideOfRange, 60000);
-</script>
-    <body>
-    <div class="container">
-        <h1>欢迎来到我的网站</h1>
-        <div class="status-message">
-            <h1>夜深了，好好休息一下吧！</h1>
-            <p>为了您和网站的健康，我们将在晚上23点到次日早上4点进行维护。感谢您的理解与支持。</p>
-        </div>
-    </div>
+    </script>
 </body>
 </html>
