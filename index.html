@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粉白渐变网站主页</title>
+    <style>
+        body {
+            font-family: '微软雅黑', sans-serif;
+            background-image: linear-gradient(to right, #ffe0e0, #ffffff);
+            background-clip: text;
+            background-origin: content-box;
+            background-size: 100% 200%;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .main-content {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .header h1 {
+            font-size: 3em;
+        }
+        .main-content h2 {
+            font-size: 2em;
+        }
+        .main-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .main-content li {
+            margin-bottom: 10px;
+        }
+        .main-content a {
+            text-decoration: none;
+            color: #f44336;
+            font-weight: bold;
+        }
+        .main-content a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>欢迎来到我的网站</h1>
+        </div>
+        <div class="main-content">
+            <h2>网站介绍</h2>
+            <p>这里可以放置网站的介绍、特点和亮点等内容。</p>
+            <h3>网站功能</h3>
+            <ul>
+                <li>功能1</li>
+                <li>功能2</li>
+                <li>功能3</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 我的网站</p>
+        </div>
+    </div>
+</body>
+</html>
