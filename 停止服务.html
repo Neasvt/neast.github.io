@@ -38,7 +38,29 @@
         }
     </style>
 </head>
-<body>
+<script>
+        function isTimeOutsideOfRange() {
+            const now = new Date();
+            const startTime = new Date('23:00:00');
+            const endTime = new Date('04:00:00');
+
+            // 检查当前时间是否在停用时间段内
+            if (now >= startTime && now <= endTime) {
+                document.getElementById('status').innerText = '抱歉，网站目前暂时关闭，请稍后再访问。';
+                // 或者，你可以使用window.location.href来重定向
+                window.location.href = 'https://example.com/maintenance.html';
+            } else {
+                document.getElementById('status').innerText = '网站正常运行。';
+            }
+        }
+
+        // 页面加载完成后立即执行检查
+        isTimeOutsideOfRange();
+
+        // 每分钟检查一次，确保时间同步
+        setInterval(isTimeOutsideOfRange, 60000);
+</script>
+    <body>
     <div class="container">
         <h1>欢迎来到我的网站</h1>
         <div class="status-message">
