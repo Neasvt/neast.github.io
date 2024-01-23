@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页已停止服务</title>
+    <style>
+        /* 在这里添加CSS样式 */
+    </style>
+</head>
+<body>
+    <h1>夜深了休息一下吧</h1>
+    <p id="status"></p>
+
+    <script>
+        function isTimeOutsideOfRange() {
+            const now = new Date();
+            const startTime = new Date('23:00:00');
+            const endTime = new Date('04:00:00');
+
+            // 检查当前时间是否在停用时间段内
+            if (now >= startTime && now <= endTime) {
+                document.getElementById('status').innerText = '网站每日于23时至次日凌晨停止服务，希望你可以睡一个好觉';
+                // 或者，你可以使用window.location.href来重定向
+                window.location.href = 'https://example.com/maintenance.html';
+            } else {
+                document.getElementById('status').innerText = '网站正常运行。';
+            }
+        }
+
+        // 页面加载完成后立即执行检查
+        isTimeOutsideOfRange();
+
+        // 每分钟检查一次，确保时间同步
+        setInterval(isTimeOutsideOfRange, 60000);
+    </script>
+</body>
+</html>
