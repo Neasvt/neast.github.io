@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>心理援助与温暖之窗</title>
+<title>心理援助</title>
 <style>
   body {
     font-family: 'Arial', sans-serif;
@@ -12,11 +12,12 @@
     background-color: #f7f0e6;
     color: #333;
     line-height: 1.6;
+    animation: fadeIn 1s;
   }
   h1 {
     color: #444;
     text-align: center;
-    font-size: 2em;
+    font-size: 2.5em;
     margin-bottom: 20px;
   }
   .container {
@@ -26,6 +27,7 @@
     margin: 20px auto;
     max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s;
   }
   .hotline-list {
     list-style: none;
@@ -53,12 +55,24 @@
     margin-top: 20px;
     color: #6c5ce7;
     font-style: italic;
+    animation: fadeIn 1s;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #666;
+    animation: fadeIn 1s;
   }
   @media only screen and (max-width: 600px) {
     .container {
       margin: 10px;
       padding: 10px;
     }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 </style>
 </head>
@@ -72,7 +86,7 @@
       <div class="hotline-name">全国青少年心理咨询热线</div>
       <div class="hotline-number">12355</div>
     </li>
-    <li>
+        <li>
       <div class="hotline-name">教育部华中师范大学心理援助热线</div>
       <div class="hotline-number">400-9678920 | 027-59427263 | 010-67440033</div>
     </li>
@@ -96,6 +110,10 @@
   <div class="message">
     <p>生命中有时候会遭遇困难和挑战，但请相信，总有解决问题的方法，总有温暖的力量在支持着你。</p>
     <p>如果你感到无法独自面对，请勇敢地寻求帮助。我们愿意倾听你的声音，陪伴你走过难关。</p>
+  </div>
+  <div class="footer">
+    <p>我们都在这里支持你，你不是一个人在战斗。</p>
+    <p>请珍惜生命，未来还有无限可能。</p>
   </div>
 </div>
 
