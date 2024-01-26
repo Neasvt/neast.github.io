@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+    <meta charset="UTF-8">
+    <title>添加药物</title>
+<link rel="stylesheet" href="kuse.css"></head>
+<body>
+   <header>
+    <h1>添加新药物</h1>
+   <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="录入.html">录入</a></li>                
+                <li><a href="删除.html">删除</a></li>               
+                <li><a href="检索.html">检索</a></li>
+               
+            </ul>
+        </nav>   
+   </header>
+   <section class="main-content">
+   用于添加新药物
+       <div class="search-container">      
+    <form action="add_drug.php" method="POST">
+        <label for="name">药物名称:</label>
+        <input type="text" name="name" required><br><br>
+        
+        <label for="description">描述:</label>
+        <textarea name="description" required></textarea><br><br>
+        
+        <label for="usage">用法:</label>
+        <textarea name="usage" required></textarea><br><br>
+        
+        <label for="side_effects">副作用:</label>
+        <textarea name="side_effects" required></textarea><br><br>
+        
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>

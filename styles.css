@@ -1,0 +1,71 @@
+/* styles.css */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f7f7f7;
+    color: #333; /* 使用较深的颜色 */
+    }
+
+header {
+    background-color: #4CAF50; /* 谷歌风格的绿色 */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    padding: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    margin-bottom: 20px;
+}
+
+.hero-section {
+    background-color: #f0f0f0; /* 浅色背景 */
+    padding: 50px;
+    text-align: center;
+    background-image: ;: <img src="https://i0.imgs.ovh/2024/01/26/xq6jC.jpeg" alt="xq6jC.jpeg" border="0" />;
+
+}
+
+.feature-section {
+    background-color: #e0e0e0; /* 更深的背景 */
+    padding: 30px;
+}
+
+.testimonials-section {
+    background-color: #d0d0d0; /* 更深的背景 */
+    padding: 20px;
+    margin-bottom: 30px;
+background-image: ;: <img src="https://i0.imgs.ovh/2024/01/26/xq6jC.jpeg" alt="xq6jC.jpeg" border="0" />;
+}
+
+.testimonial {
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}

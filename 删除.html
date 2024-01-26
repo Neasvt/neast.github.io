@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+    <meta charset="UTF-8">
+    <title>药物删除</title>
+<link rel="stylesheet" href="kuse.css"></head>
+<body>
+   <header>
+    <h1>药物删除</h1>
+   <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="about.html">关于我们</a></li>
+                <li><a href="录入.html">录入</a></li>                
+                <li><a href="删除.html">删除</a></li>               
+                <li><a href="检索.html">检索</a></li>
+               
+            </ul>
+        </nav>   
+   </header>
+   <section class="main-content">
+   用于删除已存库药品
+       <div class="search-container">    
+    <form action="delete_drug.php" method="POST">
+        <label for="drug_name">药物名称:</label>
+        <input type="text" name="drug_name" required><br><br>
+        <input type="submit" value="删除">
+    </form>
+</body>
+</html>

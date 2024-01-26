@@ -1,0 +1,73 @@
+/* styles.css */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f7f7f7;
+    color: #333; /* 使用较深的颜色 */
+}
+
+header {
+    background-color: #4CAF50; /* 谷歌风格的绿色 */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    padding: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    margin-bottom: 20px;
+}
+
+.search-container {
+    margin-bottom: 20px;
+    border-radius: 5px; /* 添加圆角 */
+    background-color: #e0e0e0; /* 更深的背景 */
+    padding: 20px;
+}
+
+.search-container label {
+    display: block;
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd; /* 添加边框 */
+    border-radius: 5px; /* 添加圆角 */
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px; /* 添加圆角 */
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #45a049;
+}
+
+/* ... 其他样式 ... */
