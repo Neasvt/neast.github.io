@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>心理健康问卷调查</title>
+<style>
+/* 全局样式 */
+body {
+/* 设置粉白色渐变背景 */
+body {
+  background-image: linear-gradient(to right, #FFE4E1, #FFD7D3); /* 从左到右的渐变，从粉色到白色 */
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  padding: 20px;
+}
+ .results {
+  margin-top: 20px;
+  padding: 10px;
+  background-image: linear-gradient(to right, #33b3db, #5cb85c); /* 从左到右的渐变 */
+  background-size: 200% 200%; /* 保持渐变效果 */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f7f7f7;
+  color: #333;
+  padding: 20px;
+}
+
+/* 表单样式 */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* 问题样式 */
+.question {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.question label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.question input[type="radio"] {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* 结果样式 */
+.results {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results div {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 总分样式 */
+#totalScore {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+  form {
+    width: 90%;
+  }
+}
+
+/* 增加一些颜色和背景样式 */
+.green {
+  background-color: #dff0d8;
+}
+
+.red {
+  background-color: #f2dede;
+}
+
+.yellow {
+  background-color: #fcf8e3;
+}
+
+/* 用于区分不同类型的分数 */
+.normal {
+  color: #3c763d;
+}
+
+.mild {
+  color: #859900;
+}
+
+.moderate {
+  color: #faa732;
+}
+
+.severe {
+  color: #f0ad4e;
+}
+
+.extreme {
+  color: #d9534f;
+}
+
+/* 用于字体加粗 */
+.bold {
+  font-weight: bold;
+}
+</style>
+<script>
+function calculateTotalScore() {
+  var totalScore = 0;
+  var factorScores = {
+    '焦虑': { score: 0, questions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }, // 焦虑维度的问题编号
+    '抑郁': { score: 0, questions: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }, // 抑郁维度的问题编号
+    '躯体化': { score: 0, questions: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30] }, // 躯体化维度的问题编号
+    '自杀风险': { score: 0, questions: [31, 32, 33, 34, 35, 36, 37, 38, 39, 40] }, // 自杀风险维度的问题编号
+    '精神病性': { score: 0, questions: [41, 42, 43, 44, 45, 46, 47, 48, 49, 50] }, // 精神病性维度的问题编号
+    '手机依赖': { score: 0, questions: [51, 52, 53, 54, 55, 56, 57, 58, 59, 60] }, // 抑郁维度的问题编号
+    '认知障碍': { score: 0, questions: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70] }, // 抑郁维度的问题编号
+    '失眠障碍': { score: 0, questions: [71, 72, 73, 74, 75, 76, 77, 78, 79, 80] }, // 抑郁维度的问题编号
+    '敌对障碍': { score: 0, questions: [81, 82, 83, 84, 85, 86, 87, 88, 89, 90] }, // 抑郁维度的问题编号
+    '强迫障碍': { score: 0, questions: [91, 92, 93, 94, 95, 96, 97, 98, 99, 100] }, // 抑郁维度的问题编号
+    '社交障碍': { score: 0, questions: [101, 102, 103, 104, 105, 106, 107, 108, 109, 200] }, // 抑郁维度的问题编号
+    '抽动障碍': { score: 0, questions: [111, 112, 113, 114, 115, 116, 117, 118, 119, 120] }, // 抑郁维度的问题编号
+    '隐匿抑郁': { score: 0, questions: [121, 122, 123, 124, 125, 126, 127, 128, 129, 130] }, // 抑郁维度的问题编号
+    '创伤障碍': { score: 0, questions: [131, 132, 133, 134, 135, 136, 137, 138, 139, 140] }, // 抑郁维度的问题编号
+          };
+
+  // 遍历所有的问题
+  document.querySelectorAll('input[type="radio"]:checked').forEach(function(radio) {
+    var questionNumber = parseInt(radio.name);
+    var score = parseInt(radio.value);
+
+    // 累计总分
+    totalScore += score;
+
+    // 计算各维度得分
+    for (var factor in factorScores) {
+      if (factorScores[factor].questions.includes(questionNumber)) {
+        factorScores[factor].score += score;
+      }
+    }
+  });
+  // 显示总分
+  document.getElementById('totalScore').textContent = '总分：' + totalScore;
+
+  // 显示各维度得分
+  var resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = ''; // 清空之前的 results
+  for (var factor in factorScores) {
+    var div = document.createElement('div');
+    div.textContent = factor + ' 维度的得分是：' + factorScores[factor].score;
+    resultsContainer.appendChild(div);
+  }
+}
+ v // 阻止表单默认提交行为
+function handleFormSubmit(event) {
+  event.preventDefault();
+  calculateTotalScore();
+}
+</script>
+</head>
+<body>
+<h4>本问卷不代表最终诊断标准，一切请以医护诊断标准为主<br>
+请回忆上两周内和两周之前，并准确无误的回答。<br>
+所有症状需要持续两周或两周以上，否则均为从不。<br>
+程度定义：很轻：功能未受到损害，有正常的生活质量，但表现出症状<br>
+中等：功能一定程度受到了损害，影响了一定程度生活质量<br>
+很重：功能大部分受到损害，影响了绝大多数生活质量<br>
+严重：功能完全受到损害，完全影响了生活质量<br>
+本问卷的所有题需建立在无器质性病变的前提下，若是非心理导致，则也应认定为从不。<br>
+</h4>
+
+<h1>心理健康问卷调查</h1>
+
+<form name="healthSurvey" id="healthSurvey" onsubmit="handleFormSubmit(event)">
+  <!-- 焦虑维度的问题 -->
+  <div>
+    <label for="question1">我无缘无故感到害怕</label><br>
+    <input type="radio" id="question1a" name="1" value="1" required>
+    <label for="question1a">从不</label>
+    <input type="radio" id="question1b" name="1" value="2">
+    <label for="question1b">很轻</label>
+    <input type="radio" id="question1c" name="1" value="3">
+    <label for="question1c">中等</label>
+    <input type="radio" id="question1d" name="1" value="4">
+    <label for="question1d">很重</label>
+    <input type="radio" id="question1e" name="1" value="5">
+    <label for="question1e">严重</label><br>
+    <label for="question2">我觉得比平时容易紧张或着急</label> <br>
+    <input type="radio" id="question2a" name="2" value="1" required>
+    <label for="question2a">从不</label>
+    <input type="radio" id="question2b" name="2" value="2">
+    <label for="question2b">很轻</label>
+    <input type="radio" id="question2c" name="2" value="3">
+    <label for="question2c">中等</label>
+    <input type="radio" id="question2d" name="2" value="4">
+    <label for="question2d">很重</label>
+    <input type="radio" id="question2e" name="2" value="5">
+    <label for="question2e">严重</label>  <br>
+    <label for="question3">我容易心里烦乱或感到惊恐</label> <br>
+    <input type="radio" id="question3a" name="3" value="1" required>
+    <label for="question3a">从不</label>
+    <input type="radio" id="question3b" name="3" value="2">
+    <label for="question3b">很轻</label>
+    <input type="radio" id="question3c" name="3" value="3">
+    <label for="question3c">中等</label>
+    <input type="radio" id="question2d" name="3" value="4">
+    <label for="question3d">很重</label>
+    <input type="radio" id="question3e" name="3" value="5">
+    <label for="question3e">严重</label> <br>
+    <label for="question4">我觉得我可能将要发疯</label> <br>
+    <input type="radio" id="question4a" name="4" value="1" required>
+    <label for="question4a">从不</label>
+    <input type="radio" id="question4b" name="4" value="2">
+    <label for="question4b">很轻</label>
+    <input type="radio" id="question4c" name="4" value="3">
+    <label for="question4c">中等</label>
+    <input type="radio" id="question4d" name="4" value="4">
+    <label for="question4d">很重</label>
+    <input type="radio" id="question4e" name="4" value="5">
+    <label for="question4e">严重</label><br>
+     <label for="question5">我感觉即将大难临头</label> <br>
+    <input type="radio" id="question5a" name="5" value="1" required>
+    <label for="question5a">从不</label>
+    <input type="radio" id="question5b" name="5" value="2">
+    <label for="question5b">很轻</label>
+    <input type="radio" id="question5c" name="5" value="3">
+    <label for="question5c">中等</label>
+    <input type="radio" id="question5d" name="5" value="4">
+    <label for="question5d">很重</label>
+    <input type="radio" id="question5e" name="5" value="5">
+    <label for="question5e">严重</label>    <br>
+    <label for="question6">我感到自己很容易疲劳</label> <br>
+    <input type="radio" id="question6a" name="6" value="1" required>
+    <label for="question6a">从不</label>
+    <input type="radio" id="question6b" name="6" value="2">
+    <label for="question6b">很轻</label>
+    <input type="radio" id="question6c" name="6" value="3">
+    <label for="question6c">中等</label>
+    <input type="radio" id="question6d" name="6" value="4">
+    <label for="question6d">很重</label>
+    <input type="radio" id="question6e" name="6" value="5">
+    <label for="question6e">严重</label> <br>
+    <label for="question7">我能悠闲的坐着</label> <br>
+    <input type="radio" id="question7a" name="7" value="5" required>
+    <label for="question7a">从不</label>
+    <input type="radio" id="question7b" name="7" value="4">
+    <label for="question7b">很轻</label>
+    <input type="radio" id="question7c" name="7" value="3">
+    <label for="question7c">中等</label>
+    <input type="radio" id="question7d" name="7" value="2">
+    <label for="question7d">很重</label>
+    <input type="radio" id="question7e" name="7" value="1">
+    <label for="question7e">严重</label>     <br>
+    <label for="question8">我很顾及别人对于我的评价</label> <br>
+    <input type="radio" id="question8a" name="8" value="1" required>
+    <label for="question8a">从不</label>
+    <input type="radio" id="question8b" name="8" value="2">
+    <label for="question8b">很轻</label>
+    <input type="radio" id="question8c" name="8" value="3">
+    <label for="question8c">中等</label>
+    <input type="radio" id="question8d" name="8" value="4">
+    <label for="question8d">很重</label>
+    <input type="radio" id="question8e" name="8" value="5">
+    <label for="question8e">严重</label>    <br>
+    <label for="question9">我很在意别人是否讨厌我</label> <br>
+    <input type="radio" id="question9a" name="9" value="1" required>
+    <label for="question9a">从不</label>
+    <input type="radio" id="question9b" name="9" value="2">
+    <label for="question9b">很轻</label>
+    <input type="radio" id="question9c" name="9" value="3">
+    <label for="question9c">中等</label>
+    <input type="radio" id="question9d" name="9" value="4">
+    <label for="question9d">很重</label>
+    <input type="radio" id="question9e" name="9" value="5">
+    <label for="question9e">严重</label>   <br>
+    <label for="question10">我很容易生气或对任何事物都抱有警惕</label> <br>
+    <input type="radio" id="question10a" name="10" value="1" required>
+    <label for="question10a">从不</label>
+    <input type="radio" id="question10b" name="10" value="2">
+    <label for="question10b">很轻</label>
+    <input type="radio" id="question10c" name="10" value="3">
+    <label for="question10c">中等</label>
+    <input type="radio" id="question10d" name="10" value="4">
+    <label for="question10d">很重</label>
+    <input type="radio" id="question10e" name="10" value="5">
+    <label for="question10e">严重</label>    
+         </div>    
+      
+       <!-- 抑郁维度的问题 -->
+  <div>
+    <label for="question11">我感到郁闷，心情低落</label> <br>
+    <input type="radio" id="question11a" name="11" value="1" required>
+    <label for="question11a">从不</label>
+    <input type="radio" id="question11b" name="11" value="2">
+    <label for="question11b">很轻</label>
+    <input type="radio" id="question11c" name="11" value="3">
+    <label for="question11c">中等</label>
+    <input type="radio" id="question11d" name="11" value="4">
+    <label for="question11d">很重</label>
+    <input type="radio" id="question11e" name="11" value="5">
+    <label for="question11e">严重</label>      <br>
+    <label for="question12">我感到一天早晨最好</label> <br>
+    <input type="radio" id="question12a" name="12" value="5" required>
+    <label for="question12a">从不</label>
+    <input type="radio" id="question12b" name="12" value="4">
+    <label for="question12b">很轻</label>
+    <input type="radio" id="question12c" name="12" value="3">
+    <label for="question12c">中等</label>
+    <input type="radio" id="question12d" name="12" value="2">
+    <label for="question12d">很重</label>
+    <input type="radio" id="question12e" name="12" value="1">
+    <label for="question12e">严重</label>    <br>
+    <label for="question13">我总能看到事物有趣的一面</label> <br>
+    <input type="radio" id="question13a" name="13" value="5" required>
+    <label for="question13a">从不</label>
+    <input type="radio" id="question13b" name="13" value="4">
+    <label for="question13b">很轻</label>
+    <input type="radio" id="question13c" name="13" value="3">
+    <label for="question13c">中等</label>
+    <input type="radio" id="question13d" name="13" value="2">
+    <label for="question13d">很重</label>
+    <input type="radio" id="question13e" name="13" value="1">
+    <label for="question13e">严重</label>       <br>
+    <label for="question14">我有自己所喜爱的事物</label> <br>
+    <input type="radio" id="question14a" name="14" value="5" required>
+    <label for="question14a">从不</label>
+    <input type="radio" id="question14b" name="14" value="4">
+    <label for="question14b">很轻</label>
+    <input type="radio" id="question14c" name="14" value="3">
+    <label for="question14c">中等</label>
+    <input type="radio" id="question14d" name="14" value="2">
+    <label for="question14d">很重</label>
+    <input type="radio" id="question14e" name="14" value="1">
+    <label for="question14e">严重</label>       <br>
+    <label for="question15">我感觉我无论做何事都很成功</label> <br>
+    <input type="radio" id="question15a" name="15" value="5" required>
+    <label for="question15a">从不</label>
+    <input type="radio" id="question15b" name="15" value="4">
+    <label for="question15b">很轻</label>
+    <input type="radio" id="question15c" name="15" value="3">
+    <label for="question15c">中等</label>
+    <input type="radio" id="question15d" name="15" value="2">
+    <label for="question15d">很重</label>
+    <input type="radio" id="question15e" name="15" value="1">
+    <label for="question15e">严重</label>       <br>    
+    <label for="question16">我不抱有负罪感或有想死的念头</label> <br>
+    <input type="radio" id="question16a" name="16" value="5" required>
+    <label for="question16a">从不</label>
+    <input type="radio" id="question16b" name="16" value="4">
+    <label for="question16b">很轻</label>
+    <input type="radio" id="question16c" name="16" value="3">
+    <label for="question16c">中等</label>
+    <input type="radio" id="question16d" name="16" value="2">
+    <label for="question16d">很重</label>
+    <input type="radio" id="question16e" name="16" value="1">
+    <label for="question16e">严重</label>       <br>   
+    <label for="question17">我喜欢打理自己</label> <br>
+    <input type="radio" id="question17a" name="17" value="5" required>
+    <label for="question17a">从不</label>
+    <input type="radio" id="question17b" name="17" value="4">
+    <label for="question17b">很轻</label>
+    <input type="radio" id="question17c" name="17" value="3">
+    <label for="question17c">中等</label>
+    <input type="radio" id="question17d" name="17" value="2">
+    <label for="question17d">很重</label>
+    <input type="radio" id="question17e" name="17" value="1">
+    <label for="question17e">严重</label>       <br>    
+    <label for="question18">我对并非我做错的任何事都很抱歉</label> <br>
+    <input type="radio" id="question18a" name="18" value="1" required>
+    <label for="question18a">从不</label>
+    <input type="radio" id="question18b" name="18" value="2">
+    <label for="question18b">很轻</label>
+    <input type="radio" id="question18c" name="18" value="3">
+    <label for="question18c">中等</label>
+    <input type="radio" id="question18d" name="18" value="4">
+    <label for="question18d">很重</label>
+    <input type="radio" id="question18e" name="18" value="5">
+    <label for="question18e">严重</label>     <br>    
+    <label for="question19">我认为我的前景很光明</label> <br>
+    <input type="radio" id="question19a" name="19" value="5" required>
+    <label for="question19a">从不</label>
+    <input type="radio" id="question19b" name="19" value="4">
+    <label for="question19b">很轻</label>
+    <input type="radio" id="question19c" name="19" value="3">
+    <label for="question19c">中等</label>
+    <input type="radio" id="question19d" name="19" value="2">
+    <label for="question19d">很重</label>
+    <input type="radio" id="question19e" name="19" value="1">
+    <label for="question19e">严重</label>       <br>   
+    <label for="question20">我感觉自己有病</label> <br>
+    <input type="radio" id="question20a" name="20" value="1" required>
+    <label for="question20a">从不</label>
+    <input type="radio" id="question20b" name="20" value="2">
+    <label for="question20b">很轻</label>
+    <input type="radio" id="question20c" name="20" value="3">
+    <label for="question20c">中等</label>
+    <input type="radio" id="question20d" name="20" value="4">
+    <label for="question20d">很重</label>
+    <input type="radio" id="question20e" name="20" value="5">
+    <label for="question20e">严重</label>       <br>    
+    </div>
+    <div>
+    <label for="question21">头晕、头胀、头重、头痛、眩晕或脑鸣</label> <br>
+    <input type="radio" id="question21a" name="21" value="1" required>
+    <label for="question21a">从不</label>
+    <input type="radio" id="question21b" name="21" value="2">
+    <label for="question21b">很轻</label>
+    <input type="radio" id="question21c" name="21" value="3">
+    <label for="question21c">中等</label>
+    <input type="radio" id="question21d" name="21" value="4">
+    <label for="question21d">很重</label>
+    <input type="radio" id="question21e" name="21" value="5">
+    <label for="question21e">严重</label>       <br>        
+    <label for="question22">心血管症状（心慌、胸痛、气短、心率加速等）</label> <br>
+    <input type="radio" id="question22a" name="22" value="1" required>
+    <label for="question22a">从不</label>
+    <input type="radio" id="question22b" name="22" value="2">
+    <label for="question22b">很轻</label>
+    <input type="radio" id="question22c" name="22" value="3">
+    <label for="question22c">中等</label>
+    <input type="radio" id="question22d" name="22" value="4">
+    <label for="question22d">很重</label>
+    <input type="radio" id="question22e" name="22" value="5">
+    <label for="question22e">严重</label>       <br>    
+    <label for="question23"> 胃肠道症状（腹胀、腹痛、食欲下降、便秘、恶心）</label> <br>
+    <input type="radio" id="question23a" name="23" value="1" required>
+    <label for="question23a">从不</label>
+    <input type="radio" id="question23b" name="23" value="2">
+    <label for="question23b">很轻</label>
+    <input type="radio" id="question23c" name="23" value="3">
+    <label for="question23c">中等</label>
+    <input type="radio" id="question23d" name="23" value="4">
+    <label for="question23d">很重</label>
+    <input type="radio" id="question23e" name="23" value="5">
+    <label for="question23e">严重</label>       <br>       
+    <label for="question24">肌肉酸痛（颈部、肩部、腰部、背部、腿部等</label> <br>
+    <input type="radio" id="question24a" name="24" value="1" required>
+    <label for="question24a">从不</label>
+    <input type="radio" id="question24b" name="24" value="2">
+    <label for="question24b">很轻</label>
+    <input type="radio" id="question24c" name="24" value="3">
+    <label for="question24c">中等</label>
+    <input type="radio" id="question24d" name="24" value="4">
+    <label for="question24d">很重</label>
+    <input type="radio" id="question24e" name="24" value="5">
+    <label for="question24e">严重</label>       <br>    
+    <label for="question25">手脚或身体某部位发麻、僵硬、刺痛、抽搐、颤抖</label> <br>
+    <input type="radio" id="question25a" name="25" value="1" required>
+    <label for="question25a">从不</label>
+    <input type="radio" id="question25b" name="25" value="2">
+    <label for="question25b">很轻</label>
+    <input type="radio" id="question25c" name="25" value="3">
+    <label for="question25c">中等</label>
+    <input type="radio" id="question25d" name="25" value="4">
+    <label for="question25d">很重</label>
+    <input type="radio" id="question25e" name="25" value="5">
+    <label for="question25e">严重</label>       <br>    
+    <label for="question26">肢体易出汗颤抖或忽冷忽热</label> <br>
+    <input type="radio" id="question26a" name="26" value="1" required>
+    <label for="question26a">从不</label>
+    <input type="radio" id="question26b" name="26" value="2">
+    <label for="question26b">很轻</label>
+    <input type="radio" id="question26c" name="26" value="3">
+    <label for="question26c">中等</label>
+    <input type="radio" id="question26d" name="26" value="4">
+    <label for="question26d">很重</label>
+    <input type="radio" id="question26e" name="26" value="5">
+    <label for="question26e">严重</label>       <br>    
+    <label for="question27">咽部不适、喉咙有阻塞感、鼻塞或耳鸣</label> <br>
+    <input type="radio" id="question27a" name="27" value="1" required>
+    <label for="question27a">从不</label>
+    <input type="radio" id="question27b" name="27" value="2">
+    <label for="question27b">很轻</label>
+    <input type="radio" id="question27c" name="27" value="3">
+    <label for="question27c">中等</label>
+    <input type="radio" id="question27d" name="27" value="4">
+    <label for="question27d">很重</label>
+    <input type="radio" id="question27e" name="27" value="5">
+    <label for="question27e">严重</label>       <br>    
+    <label for="question28">突发性声嘶或失明</label> <br>
+    <input type="radio" id="question28a" name="28" value="1" required>
+    <label for="question28a">从不</label>
+    <input type="radio" id="question28b" name="28" value="2">
+    <label for="question28b">很轻</label>
+    <input type="radio" id="question28c" name="28" value="3">
+    <label for="question28c">中等</label>
+    <input type="radio" id="question28d" name="28" value="4">
+    <label for="question28d">很重</label>
+    <input type="radio" id="question28e" name="28" value="5">
+    <label for="question28e">严重</label>       <br>    
+    <label for="question29">抽搐、痉挛</label> <br>
+    <input type="radio" id="question29a" name="29" value="1" required>
+    <label for="question29a">从不</label>
+    <input type="radio" id="question29b" name="29" value="2">
+    <label for="question29b">很轻</label>
+    <input type="radio" id="question29c" name="29" value="3">
+    <label for="question29c">中等</label>
+    <input type="radio" id="question29d" name="29" value="4">
+    <label for="question29d">很重</label>
+    <input type="radio" id="question29e" name="29" value="5">
+    <label for="question29e">严重</label>       <br>    
+    <label for="question30">健忘</label> <br>
+    <input type="radio" id="question30a" name="30" value="1" required>
+    <label for="question30a">从不</label>
+    <input type="radio" id="question30b" name="30" value="2">
+    <label for="question30b">很轻</label>
+    <input type="radio" id="question30c" name="30" value="3">
+    <label for="question30c">中等</label>
+    <input type="radio" id="question30d" name="30" value="4">
+    <label for="question30d">很重</label>
+    <input type="radio" id="question30e" name="30" value="5">
+    <label for="question30e">严重</label>       <br>    
+     </div>
+     <div>
+     <label for="question31">有过自残史</label> <br>
+    <input type="radio" id="question31a" name="31" value="1" required>
+    <label for="question31a">从不（无）</label>
+    <input type="radio" id="question31b" name="31" value="2">
+    <label for="question31b">很轻</label>
+    <input type="radio" id="question31c" name="31" value="3">
+    <label for="question31c">中等</label>
+    <input type="radio" id="question31d" name="31" value="4">
+    <label for="question31d">很重</label>
+    <input type="radio" id="question31e" name="31" value="5">
+    <label for="question31e">严重（多次）</label>       <br>    
+    <label for="question32">言语与他人流露过自杀想法</label> <br>
+    <input type="radio" id="question32a" name="32" value="1" required>
+    <label for="question32a">从不（无）</label>
+    <input type="radio" id="question32b" name="32" value="2">
+    <label for="question32b">很轻</label>
+    <input type="radio" id="question32c" name="32" value="3">
+    <label for="question32c">中等</label>
+    <input type="radio" id="question32d" name="32" value="4">
+    <label for="question32d">很重</label>
+    <input type="radio" id="question32e" name="32" value="5">
+    <label for="question32e">严重（多次）</label> <br>     
+    <label for="question33">制定过自杀计划</label> <br>
+    <input type="radio" id="question33a" name="33" value="1" required>
+    <label for="question33a">从不（无）</label>
+    <input type="radio" id="question30b" name="33" value="2">
+    <label for="question33b">很轻</label>
+    <input type="radio" id="question33c" name="33" value="3">
+    <label for="question33c">中等</label>
+    <input type="radio" id="question33d" name="33" value="4">
+    <label for="question33d">很重</label>
+    <input type="radio" id="question33e" name="33" value="5">
+    <label for="question33e">严重（多次）</label>       <br>         
+    <label for="question34">绝望感</label> <br>
+    <input type="radio" id="question34a" name="34" value="1" required>
+    <label for="question34a">从不</label>
+    <input type="radio" id="question34b" name="34" value="2">
+    <label for="question34b">很轻</label>
+    <input type="radio" id="question34c" name="34" value="3">
+    <label for="question34c">中等</label>
+    <input type="radio" id="question34d" name="34" value="4">
+    <label for="question34d">很重</label>
+    <input type="radio" id="question34e" name="34" value="5">
+    <label for="question34e">严重</label>       <br>       
+    <label for="question35">自杀未遂史</label> <br>
+    <input type="radio" id="question35a" name="35" value="1" required>
+    <label for="question35a">从不（无）</label>
+    <input type="radio" id="question35b" name="35" value="2">
+    <label for="question35b">很轻</label>
+    <input type="radio" id="question35c" name="35" value="3">
+    <label for="question35c">中等</label>
+    <input type="radio" id="question35d" name="35" value="4">
+    <label for="question35d">很重</label>
+    <input type="radio" id="question35e" name="35" value="5">
+    <label for="question35e">严重（多次）</label>       <br>    
+    <label for="question36">衰弱感</label> <br>
+    <input type="radio" id="question36a" name="36" value="1" required>
+    <label for="question36a">从不</label>
+    <input type="radio" id="question36b" name="36" value="2">
+    <label for="question36b">很轻</label>
+    <input type="radio" id="question36c" name="36" value="3">
+    <label for="question36c">中等</label>
+    <input type="radio" id="question36d" name="36" value="4">
+    <label for="question36d">很重</label>
+    <input type="radio" id="question36e" name="36" value="5">
+    <label for="question36e">严重</label>       <br>                
+    <label for="question37">遭受过重大消极事件</label> <br>
+    <input type="radio" id="question37a" name="37" value="1" required>
+    <label for="question37a">从不（无）</label>
+    <input type="radio" id="question37b" name="37" value="2">
+    <label for="question37b">很轻</label>
+    <input type="radio" id="question37c" name="37" value="3">
+    <label for="question37c">中等</label>
+    <input type="radio" id="question37d" name="37" value="4">
+    <label for="question37d">很重</label>
+    <input type="radio" id="question37e" name="37" value="5">
+    <label for="question37e">严重（多次）</label>       <br>    
+    <label for="question38">不合群</label> <br>
+    <input type="radio" id="question38a" name="38" value="1" required>
+    <label for="question38a">从不</label>
+    <input type="radio" id="question38b" name="38" value="2">
+    <label for="question38b">很轻</label>
+    <input type="radio" id="question38c" name="38" value="3">
+    <label for="question38c">中等</label>
+    <input type="radio" id="question38d" name="38" value="4">
+    <label for="question38d">很重</label>
+    <input type="radio" id="question38e" name="38" value="5">
+    <label for="question38e">严重</label>       <br>      
+    <label for="question39">判断能力变窄</label> <br>
+    <input type="radio" id="question39a" name="39" value="1" required>
+    <label for="question39a">从不</label>
+    <input type="radio" id="question39b" name="39" value="2">
+    <label for="question39b">很轻</label>
+    <input type="radio" id="question39c" name="39" value="3">
+    <label for="question39c">中等</label>
+    <input type="radio" id="question39d" name="39" value="4">
+    <label for="question39d">很重</label>
+    <input type="radio" id="question39e" name="39" value="5">
+    <label for="question39e">严重</label>       <br>      
+    <label for="question40">极严重的恼怒，易激惹</label> <br>
+    <input type="radio" id="question40a" name="40" value="1" required>
+    <label for="question40a">从不（无）</label>
+    <input type="radio" id="question40b" name="40" value="2">
+    <label for="question40b">很轻</label>
+    <input type="radio" id="question40c" name="40" value="3">
+    <label for="question40c">中等</label>
+    <input type="radio" id="question40d" name="40" value="4">
+    <label for="question40d">很重</label>
+    <input type="radio" id="question40e" name="40" value="5">
+    <label for="question40e">严重（多次）</label>       <br>        
+     </div>
+     <div>
+        <label for="question41">自身健康的过分关心</label> <br>
+    <input type="radio" id="question41a" name="41" value="1" required>
+    <label for="question41a">从不</label>
+    <input type="radio" id="question41b" name="41" value="2">
+    <label for="question41b">很轻</label>
+    <input type="radio" id="question41c" name="41" value="3">
+    <label for="question41c">中等</label>
+    <input type="radio" id="question41d" name="41" value="4">
+    <label for="question41d">很重</label>
+    <input type="radio" id="question41e" name="41" value="5">
+    <label for="question41e">严重</label>       <br>        
+    <label for="question42">对当前及未来情况的担心，恐惧或过分关注</label> <br>
+    <input type="radio" id="question42a" name="42" value="1" required>
+    <label for="question42a">从不</label>
+    <input type="radio" id="question42b" name="42" value="2">
+    <label for="question42b">很轻</label>
+    <input type="radio" id="question42c" name="42" value="3">
+    <label for="question42c">中等</label>
+    <input type="radio" id="question42d" name="42" value="4">
+    <label for="question42d">很重</label>
+    <input type="radio" id="question42e" name="42" value="5">
+    <label for="question42e">严重</label>       <br>   
+    <label for="question43">联想散漫，零乱和解体</label> <br>
+    <input type="radio" id="question42a" name="42" value="1" required>
+    <label for="question42a">从不</label>
+    <input type="radio" id="question42b" name="42" value="2">
+    <label for="question42b">很轻</label>
+    <input type="radio" id="question42c" name="42" value="3">
+    <label for="question42c">中等</label>
+    <input type="radio" id="question42d" name="42" value="4">
+    <label for="question42d">很重</label>
+    <input type="radio" id="question42e" name="42" value="5">
+    <label for="question42e">严重</label>       <br>   
+   <label for="question43">对以往言行的过分关心内疚和悔恨</label> <br>
+    <input type="radio" id="question43a" name="43" value="1" required>
+    <label for="question43a">从不</label>
+    <input type="radio" id="question43b" name="43" value="2">
+    <label for="question43b">很轻</label>
+    <input type="radio" id="question43c" name="43" value="3">
+    <label for="question43c">中等</label>
+    <input type="radio" id="question43d" name="43" value="4">
+    <label for="question43d">很重</label>
+    <input type="radio" id="question43e" name="43" value="5">
+    <label for="question43e">严重</label>       <br>    
+   <label for="question44">不寻常的或不自然的行为</label> <br>
+    <input type="radio" id="question44a" name="44" value="1" required>
+    <label for="question44a">从不</label>
+    <input type="radio" id="question44b" name="44" value="2">
+    <label for="question44b">很轻</label>
+    <input type="radio" id="question44c" name="44" value="3">
+    <label for="question44c">中等</label>
+    <input type="radio" id="question44d" name="44" value="4">
+    <label for="question44d">很重</label>
+    <input type="radio" id="question44e" name="44" value="5">
+    <label for="question44e">严重</label>       <br>    
+    <label for="question45">过分自负，确信具有不寻常的才能和权力等</label> <br>
+    <input type="radio" id="question45a" name="45" value="1" required>
+    <label for="question45a">从不</label>
+    <input type="radio" id="question45b" name="45" value="2">
+    <label for="question45b">很轻</label>
+    <input type="radio" id="question45c" name="45" value="3">
+    <label for="question45c">中等</label>
+    <input type="radio" id="question45d" name="45" value="4">
+    <label for="question45d">很重</label>
+    <input type="radio" id="question45e" name="45" value="5">
+    <label for="question45e">严重</label>       <br>   
+     <label for="question46">对他人的仇恨，敌对和蔑视</label> <br>
+    <input type="radio" id="question46a" name="46" value="1" required>
+    <label for="question46a">从不</label>
+    <input type="radio" id="question46b" name="46" value="2">
+    <label for="question46b">很轻</label>
+    <input type="radio" id="question46c" name="46" value="3">
+    <label for="question46c">中等</label>
+    <input type="radio" id="question46d" name="46" value="4">
+    <label for="question46d">很重</label>
+    <input type="radio" id="question46e" name="46" value="5">
+    <label for="question46e">严重</label>       <br>       
+    <label for="question47">认为有人正在或曾经恶意地对待你</label> <br>
+    <input type="radio" id="question47a" name="47" value="1" required>
+    <label for="question47a">从不</label>
+    <input type="radio" id="question47b" name="47" value="2">
+    <label for="question47b">很轻</label>
+    <input type="radio" id="question47c" name="47" value="3">
+    <label for="question47c">中等</label>
+    <input type="radio" id="question47d" name="47" value="4">
+    <label for="question47d">很重</label>
+    <input type="radio" id="question42e" name="47" value="5">
+    <label for="question47e">严重</label>       <br>    
+    <label for="question48">感觉缺乏共情能力</label> <br>
+    <input type="radio" id="question48a" name="48" value="1" required>
+    <label for="question48a">从不</label>
+    <input type="radio" id="question48b" name="48" value="2">
+    <label for="question48b">很轻</label>
+    <input type="radio" id="question48c" name="48" value="3">
+    <label for="question48c">中等</label>
+    <input type="radio" id="question48d" name="48" value="4">
+    <label for="question48d">很重</label>
+    <input type="radio" id="question48e" name="48" value="5">
+    <label for="question48e">严重</label>       <br>   
+     <label for="question49">幻觉</label> <br>
+    <input type="radio" id="question49a" name="49" value="1" required>
+    <label for="question49a">从不</label>
+    <input type="radio" id="question49b" name="49" value="2">
+    <label for="question49b">很轻</label>
+    <input type="radio" id="question49c" name="49" value="3">
+    <label for="question49c">中等</label>
+    <input type="radio" id="question49d" name="49" value="4">
+    <label for="question49d">很重</label>
+    <input type="radio" id="question49e" name="49" value="5">
+    <label for="question49e">严重</label>       <br>   
+      <label for="question50">感觉思维突然被外力强行插入或抽出</label> <br>
+    <input type="radio" id="question50a" name="50" value="1" required>
+    <label for="question50a">从不</label>
+    <input type="radio" id="question50b" name="50" value="2">
+    <label for="question50b">很轻</label>
+    <input type="radio" id="question50c" name="50" value="3">
+    <label for="question50c">中等</label>
+    <input type="radio" id="question50d" name="50" value="4">
+    <label for="question50d">很重</label>
+    <input type="radio" id="question50e" name="50" value="5">
+    <label for="question50e">严重</label>       <br>       
+     </div>
+  <button type="submit">提交问卷</button>
+</form>
+
+<div id="results" class="results"></div>
+<div id="totalScore"></div>
+
+<footer>
+<div style="
+text-align: center;
+font-size: 30px;
+font-family: 微软雅黑;
+">
+<a href="解读.html">解读</a>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  h2 {
+    color: #333;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  th {
+    background-color: #f0f0f0;
+  }
+  input[type=number] {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+  }
+  button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  #interpretation-自杀风险 {
+    font-weight: bold;
+  }
+  @media only screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr { border: 1px solid #ccc; }
+    td {
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+    td:before {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+    td:nth-of-type(1):before { content: "维度"; }
+    td:nth-of-type(2):before { content: "分数"; }
+    td:nth-of-type(3):before { content: "解读结果"; }
+    td:nth-of-type(4):before { content: "操作"; }
+  }
+</style>
+<title>多维度心理测试结果解读</title>
+<script>
+function interpretScore(dim) {
+    var score = document.getElementById('score-' + dim).value;
+    score = parseInt(score); // 将分数转换为整数
+    var result = '';
+
+    if (10 <= score && score <= 33) {
+        result = '正常';
+    } else if (34 <= score && score <= 40) {
+        result = '轻度';
+    } else if (41 <= score && score <= 45) {
+        result = '中度';
+    } else if (46 <= score && score <= 50) {
+        result = '重度';
+    } else {
+        result = '分数超出范围';
+    }
+
+    // 特殊处理自杀风险维度
+    if (dim === '自杀风险') {
+        if (43 <= score && score <= 50) {
+            window.location.href = 'https://neasvt.github.io/neast.github.io/%E8%87%AA%E6%9D%80';
+            return; // 跳转后停止执行
+        }
+    }
+
+    document.getElementById('interpretation-' + dim).innerText = '测试结果：' + result;
+}
+</script>
+</head>
+<body>
+
+<h2>多维度心理测试结果解读</h2>
+<table>
+    <tr>
+        <th>维度</th>
+        <th>分数</th>
+        <th>解读结果</th>
+    </tr>
+    <!-- 添加其他维度的输入框和按钮 -->
+    <!-- ... -->
+     <tr>
+        <td>焦虑</td>
+        <td><input type="number" id="score-焦虑" placeholder="请输入分数"></td>
+        <td id="interpretation-焦虑"></td>
+        <td><button onclick="interpretScore('焦虑')">解读</button></td>
+    </tr>        
+    <tr>
+        <td>抑郁</td>
+        <td><input type="number" id="score-抑郁" placeholder="请输入分数"></td>
+        <td id="interpretation-抑郁"></td>
+        <td><button onclick="interpretScore('抑郁')">解读</button></td>
+    </tr>       
+     </tr>
+       <tr>
+        <td>躯体化</td>
+        <td><input type="number" id="score-躯体化" placeholder="请输入分数"></td>
+        <td id="interpretation-躯体化"></td>
+        <td><button onclick="interpretScore('躯体化')">解读</button></td>
+    </tr>      
+        <tr>
+        <td>自杀风险</td>
+        <td><input type="number" id="score-自杀风险" placeholder="请输入分数"></td>
+        <td id="interpretation-自杀风险"></td>
+        <td><button onclick="interpretScore('自杀风险')">解读</button></td>
+    </tr>
+       <tr>
+        <td>精神病性</td>
+        <td><input type="number" id="score-精神病性" placeholder="请输入分数"></td>
+        <td id="interpretation-精神病性"></td>
+        <td><button onclick="interpretScore('精神病性')">解读</button></td>
+    </tr>   
+     </tr>
+       <tr>
+        <td>手机依赖</td>
+        <td><input type="number" id="score-手机依赖" placeholder="请输入分数"></td>
+        <td id="interpretation-手机依赖"></td>
+        <td><button onclick="interpretScore('手机依赖')">解读</button></td>
+    </tr>  
+     </tr>
+       <tr>
+        <td>认知障碍</td>
+        <td><input type="number" id="score-认知障碍" placeholder="请输入分数"></td>
+        <td id="interpretation-认知障碍"></td>
+        <td><button onclick="interpretScore('认知障碍')">解读</button></td>
+    </tr>             
+   </tr>
+       <tr>
+        <td>失眠障碍</td>
+        <td><input type="number" id="score-失眠障碍" placeholder="请输入分数"></td>
+        <td id="interpretation-失眠障碍"></td>
+        <td><button onclick="interpretScore('失眠障碍')">解读</button></td>
+    </tr>        
+    </tr>
+       <tr>
+        <td>强迫障碍</td>
+        <td><input type="number" id="score-强迫障碍" placeholder="请输入分数"></td>
+        <td id="interpretation-强迫障碍"></td>
+        <td><button onclick="interpretScore('强迫障碍')">解读</button></td>
+    </tr>
+       <tr>
+        <td>社交障碍</td>
+        <td><input type="number" id="score-社交障碍" placeholder="请输入分数"></td>
+        <td id="interpretation-社交障碍"></td>
+        <td><button onclick="interpretScore('社交障碍')">解读</button></td>
+    </tr>         
+    </tr>          
+     </tr>
+       <tr>
+        <td>抽动障碍</td>
+        <td><input type="number" id="score-抽动障碍" placeholder="请输入分数"></td>
+        <td id="interpretation-抽动障碍"></td>
+        <td><button onclick="interpretScore('抽动障碍')">解读</button></td>
+    </tr>         
+        </tr>
+       <tr>
+        <td>隐匿抑郁</td>
+        <td><input type="number" id="score-隐匿抑郁" placeholder="请输入分数"></td>
+        <td id="interpretation-隐匿抑郁"></td>
+        <td><button onclick="interpretScore('隐匿抑郁')">解读</button></td>
+    </tr>           
+     </tr>
+       <tr>
+        <td>创伤障碍</td>
+        <td><input type="number" id="score-创伤障碍" placeholder="请输入分数"></td>
+        <td id="interpretation-创伤障碍"></td>
+        <td><button onclick="interpretScore('创伤障碍')">解读</button></td>
+    </tr>                  
+       <h5> 注：精神病性主要测试精神分裂症<br>
+       隐匿抑郁主要测试微笑型抑郁与隐匿性抑郁<br>
+       创伤障碍主要测试PTSD<br>
+       </h5>
+        
+    <!-- ... -->
+</table>
+
+</body>
+</html>
